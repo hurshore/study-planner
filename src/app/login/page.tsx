@@ -1,9 +1,11 @@
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import { FormLabels, Placeholders } from '@/constants/form';
+import { ROUTES } from '@/constants/navigation';
 // images
 import Illustration from '@/assets/images/home-illustration.svg';
 import Logo from '@/assets/images/logo.svg';
@@ -18,7 +20,14 @@ const illustrationHeading = 'Build your Personal Study Plan';
 const illustrationSubheading = 'Sign in to get started';
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const onChange = () => {};
+
+  const handleSubmit = () => {
+    router.replace(ROUTES.DASHBOARD);
+  };
+
   return (
     <main className="px-4 py-6 flex lg:p-20 max-w-screen-2xl mx-auto min-h-screen">
       <section className="flex-1">
@@ -46,7 +55,7 @@ const LoginPage = () => {
             <p className="text-sm text-grey-900 mt-1 text-right cursor-pointer">
               {forgotPassword}
             </p>
-            <Button type="submit" className="w-full mt-12">
+            <Button className="w-full mt-12" onClick={handleSubmit}>
               {submitBtn}
             </Button>
           </form>
