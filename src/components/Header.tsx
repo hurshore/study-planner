@@ -12,7 +12,7 @@ const hamburgerAlt = 'menu';
 
 const Header = ({ toggleSidebar }: Props) => {
   return (
-    <header className="bg-white shadow p-3.5 flex justify-between items-center">
+    <header className="bg-white shadow py-3.5 px-4 md:px-10 flex justify-between items-center">
       <div className="flex items-center">
         <button className="md:hidden mr-2" onClick={toggleSidebar}>
           <Image src={HamburgerIcon} alt={hamburgerAlt} />

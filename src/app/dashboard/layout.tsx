@@ -12,7 +12,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex-1">
         <Header toggleSidebar={toggleSidebar} />
-        <main className="p-4 md:px-10 md:py-8">{children}</main>
+        <main className="min-h-screen p-4 md:px-10 md:py-8 bg-grey-100">
+          {children}
+        </main>
       </div>
     </div>
   );

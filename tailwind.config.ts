@@ -10,8 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         grey: {
+          100: '#F8F8F8',
           300: '#E9EAEC',
-          400: '#8C8C8C',
+          400: '#CBD5E0',
           500: '#A0AEC0',
           600: '#687588',
           900: '#151A20',
@@ -19,7 +20,9 @@ const config: Config = {
         primary: {
           100: '#C6ADE6',
           200: '#AC87DA',
+          300: '#9363CF',
           400: '#7B41C5',
+          500: '#6937A7',
         },
       },
       fontFamily: {

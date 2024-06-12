@@ -7,7 +7,7 @@ import FormInput from '@/components/FormInput';
 import { FormLabels, Placeholders } from '@/constants/form';
 import { ROUTES } from '@/constants/navigation';
 // images
-import Illustration from '@/assets/images/home-illustration.svg';
+import Illustration from '@/assets/images/login-illustration.svg';
 import Logo from '@/assets/images/logo.svg';
 
 const heading = 'Sign in';
@@ -37,7 +37,7 @@ const LoginPage = () => {
             <h1 className="text-[32px] font-bold text-grey-900 mb-2">
               {heading}
             </h1>
-            <p className="font-medium text-grey-400">{subheading}</p>
+            <p className="font-medium text-grey-600">{subheading}</p>
           </div>
           <form>
             <FormInput
