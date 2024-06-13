@@ -27,11 +27,14 @@ const Sidebar = ({}: Props) => {
   };
 
   return (
-    <div className="hidden bg-primary-400 text-white w-[273px] min-h-screen py-8 pl-8 md:block">
+    <div className="hidden fixed bg-primary-400 text-white w-[273px] min-h-screen py-8 pl-8 md:block">
       <Image src={LogoLight} alt="logo" />
       <nav className="mt-20">
         {links.map((Link) => {
-          const isActive = pathname === Link.href;
+          const isActive =
+            Link.href === ROUTES.GOALS
+              ? pathname === ROUTES.GOALS
+              : pathname !== ROUTES.GOALS;
           const className = isActive
             ? colorVariants.primary
             : colorVariants.white;

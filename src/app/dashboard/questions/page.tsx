@@ -5,41 +5,72 @@ import Image from 'next/image';
 import BreadCrumb from '@/components/BreadCrumb';
 import Button from '@/components/Button';
 import ProgressBar from '@/components/ProgressBar';
-import Question from '@/components/Question';
+import Question, { Question as QModel } from '@/components/Question';
 import { ROUTES } from '@/constants/navigation';
 // images
 import ChevronRight from '@/assets/icons/chevron-right.svg';
 
-const questions = [
+const questions: QModel[] = [
   {
+    id: 1,
     sn: 1,
-    question:
-      'Discuss the concept of generics in Java and how they provide type safety and code reusability.',
+    question: 'What does CSS stand for?',
+    options: [
+      { id: 1, option: 'Computer Style Sheets' },
+      { id: 2, option: 'Creative Style Sheets' },
+      { id: 3, option: 'Cascading Style Sheets' },
+      { id: 4, option: 'Colorful Style Sheets' },
+    ],
+    answer: 3,
   },
   {
+    id: 2,
     sn: 2,
     question:
-      'Explain the use of reflection in Java and how it allows for dynamic inspection and modification of classes, methods, and fields at runtime.',
+      'Where in an HTML document is the correct place to refer to an external style sheet?',
+    options: [
+      { id: 1, option: 'In the <head> section' },
+      { id: 2, option: 'At the end of the document' },
+      { id: 3, option: 'In the <body> section' },
+      { id: 4, option: 'In the <footer> section' },
+    ],
+    answer: 1,
   },
   {
+    id: 3,
     sn: 3,
-    question:
-      'Describe the different interfaces and classes in the Java Collections Framework.',
+    question: 'Which HTML tag is used to define an internal style sheet?',
+    options: [
+      { id: 1, option: '<style>' },
+      { id: 2, option: '<script>' },
+      { id: 3, option: '<head>' },
+      { id: 4, option: '<css>' },
+    ],
+    answer: 1,
   },
   {
+    id: 4,
     sn: 4,
-    question:
-      'Explain the Stream API introduced in Java 8 and how it facilitates functional-style operations on collections.',
+    question: 'Which is the correct CSS syntax?',
+    options: [
+      { id: 1, option: '{body:color=black;}' },
+      { id: 2, option: 'body:color=black;' },
+      { id: 3, option: '{body;color:black;}' },
+      { id: 4, option: 'body {color: black;}' },
+    ],
+    answer: 4,
   },
   {
+    id: 5,
     sn: 5,
-    question:
-      'Discuss the various mechanisms for achieving concurrency in Java, including threads, executors, and synchronization.',
-  },
-  {
-    sn: 6,
-    question:
-      'Describe the Java memory model and how it manages memory allocation, garbage collection, and memory leaks.',
+    question: 'How do you insert a comment in a CSS file?',
+    options: [
+      { id: 1, option: '// this is a comment //' },
+      { id: 2, option: '/* this is a comment */' },
+      { id: 3, option: '// this is a comment' },
+      { id: 4, option: '<!-- this is a comment -->' },
+    ],
+    answer: 2,
   },
 ];
 
@@ -61,7 +92,7 @@ export default function Questions() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-8">
         <BreadCrumb items={breadCrumbs} />
         <Button className="flex items-center py-[9px] px-4">
           Submit
@@ -69,9 +100,9 @@ export default function Questions() {
         </Button>
       </div>
       <ProgressBar steps={steps} currentStep={currentStep} />
-      <div className="flex flex-wrap gap-10 bg-white rounded-2xl py-10 px-4 shadow">
+      <div className="flex flex-col gap-4">
         {questions.map((item) => (
-          <Question key={item.sn} sn={item.sn} question={item.question} />
+          <Question key={item.sn} question={item} />
         ))}
       </div>
     </div>

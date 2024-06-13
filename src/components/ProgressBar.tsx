@@ -5,41 +5,38 @@ type Props = {
 
 const ProgressBar = ({ steps, currentStep }: Props) => {
   return (
-    <div className="flex justify-between items-center w-full max-w-4xl mx-auto mt-8">
-      {steps.map((step, index) => (
-        <div key={index} className="flex-1 flex items-center">
-          <div className="relative flex flex-col items-center">
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                index <= currentStep ? 'bg-purple-600' : 'bg-gray-300'
-              }`}
-            >
-              <span className="text-white">{index + 1}</span>
-            </div>
-            <span
-              className={`mt-2 text-xs ${
-                index <= currentStep ? 'text-purple-600' : 'text-gray-500'
-              } md:hidden`}
-            >
-              {index + 1}
-            </span>
-            <span
-              className={`mt-2 text-xs ${
-                index <= currentStep ? 'text-purple-600' : 'text-gray-500'
-              } hidden md:inline`}
-            >
+    <div className="flex justify-center w-full mb-10">
+      {steps.map((step, index) => {
+        const dotColor =
+          index <= currentStep ? 'bg-primary-400' : 'bg-grey-400';
+        const barColor = index < currentStep ? 'bg-primary-400' : 'bg-grey-400';
+
+        return (
+          <div className="flex flex-col w-full">
+            <p className="hidden text-center text-sm mb-2 md:block font-medium">
               {step}
-            </span>
+            </p>
+            <p className="text-center text-sm mb-2 md:hidden font-medium">
+              {index + 1}
+            </p>
+            <div className="flex flex-row items-center flex-1">
+              <div
+                className={`flex-[0.5] h-1 ${
+                  index > 0 ? dotColor : 'bg-transparent'
+                }`}
+              ></div>
+              <div
+                className={`flex items-center justify-center w-6 h-6 rounded-full ${dotColor}`}
+              >
+                <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+              </div>
+              {index < steps.length - 1 && (
+                <div className={`flex-[0.5] h-1 ${barColor}`}></div>
+              )}
+            </div>
           </div>
-          {index < steps.length - 1 && (
-            <div
-              className={`flex-1 h-1 ${
-                index < currentStep ? 'bg-purple-600' : 'bg-gray-300'
-              }`}
-            ></div>
-          )}
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

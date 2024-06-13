@@ -27,11 +27,9 @@ const BreadCrumb = ({ items }: Props) => {
         <div key={index} className="flex items-center space-x-2">
           <p
             onClick={() => handleClick(item.path)}
-            className={
-              item.isActive
-                ? `cursor-pointer ${colorVariants.active}`
-                : 'cursor-pointer'
-            }
+            className={`cursor-pointer ${
+              item.isActive ? colorVariants.active : ''
+            }`}
           >
             {item.name}
           </p>
