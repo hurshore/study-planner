@@ -24,6 +24,14 @@ const config: Config = {
           400: '#7B41C5',
           500: '#6937A7',
         },
+        error: {
+          300: '#FFECEB',
+          400: '#E03137',
+        },
+        success: {
+          300: '#E0FFF0',
+          400: '#0CAF60',
+        },
       },
       fontFamily: {
         manrope: ['Manrope'],

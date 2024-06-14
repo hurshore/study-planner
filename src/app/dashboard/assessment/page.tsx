@@ -73,17 +73,18 @@ const questions: QModel[] = [
 
 const breadCrumbs = [
   { name: 'Home', path: ROUTES.DASHBOARD, isActive: false },
-  { name: 'Questions', path: ROUTES.QUESTIONS, isActive: true },
+  { name: 'Questions', path: ROUTES.QUESTIONS, isActive: false },
+  { name: 'Assessment', path: ROUTES.ASSESSMENT, isActive: true },
 ];
 
-const currentStep = 1;
-const buttonLabel = 'Submit';
+const buttonLabel = 'Next';
+const currentStep = 2;
 
-export default function Questions() {
+export default function Assessment() {
   const router = useRouter();
 
   const handleSubmit = () => {
-    router.push(ROUTES.ASSESSMENT);
+    router.push(ROUTES.GOALS);
   };
 
   return (
@@ -95,7 +96,7 @@ export default function Questions() {
       <ProgressBar currentStep={currentStep} />
       <div className="flex flex-col gap-4">
         {questions.map((item) => (
-          <Question key={item.sn} question={item} />
+          <Question key={item.sn} question={item} chosenAnswer={1} showAnswer />
         ))}
       </div>
     </div>

@@ -1,9 +1,16 @@
 type Props = {
-  steps: string[];
   currentStep: number;
 };
 
-const ProgressBar = ({ steps, currentStep }: Props) => {
+const steps = [
+  'Upload file',
+  'Questions',
+  'Assessment',
+  'Study Goals',
+  'Study Plan',
+];
+
+const ProgressBar = ({ currentStep }: Props) => {
   return (
     <div className="flex justify-center w-full mb-10">
       {steps.map((step, index) => {

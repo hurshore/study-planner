@@ -23,19 +23,26 @@ const BreadCrumb = ({ items }: Props) => {
 
   return (
     <div className="flex items-center space-x-2 text-grey-600 font-medium">
-      {items.map((item, index) => (
-        <div key={index} className="flex items-center space-x-2">
-          <p
-            onClick={() => handleClick(item.path)}
-            className={`cursor-pointer ${
-              item.isActive ? colorVariants.active : ''
-            }`}
-          >
-            {item.name}
-          </p>
-          {index < items.length - 1 && <p>{'>'}</p>}
-        </div>
-      ))}
+      {items.map((item, index) => {
+        const isVisible = index === 0 || index === items.length - 1;
+        return (
+          <div key={index} className="flex items-center space-x-2">
+            {isVisible ? (
+              <p
+                onClick={() => handleClick(item.path)}
+                className={`cursor-pointer ${
+                  item.isActive ? colorVariants.active : ''
+                }`}
+              >
+                {item.name}
+              </p>
+            ) : (
+              <p className="font-medium">...</p>
+            )}
+            {index < items.length - 1 && <p>{'>'}</p>}
+          </div>
+        );
+      })}
     </div>
   );
 };

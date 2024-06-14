@@ -28,3 +28,24 @@
     @apply font-manrope;
   }
 }
+
+input[type='radio'] {
+  appearance: none;
+  border-width: 1.5px;
+  border-style: solid;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+}
+
+input[type='radio']:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
