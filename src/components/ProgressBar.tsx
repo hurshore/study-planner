@@ -19,7 +19,7 @@ const ProgressBar = ({ currentStep }: Props) => {
         const barColor = index < currentStep ? 'bg-primary-400' : 'bg-grey-400';
 
         return (
-          <div className="flex flex-col w-full">
+          <div key={step} className="flex flex-col w-full text-text-2">
             <p className="hidden text-center text-sm mb-2 md:block font-medium">
               {step}
             </p>

@@ -23,6 +23,7 @@ const config: Config = {
           300: '#9363CF',
           400: '#7B41C5',
           500: '#6937A7',
+          700: '#462570',
         },
         error: {
           300: '#FFECEB',
@@ -31,6 +32,10 @@ const config: Config = {
         success: {
           300: '#E0FFF0',
           400: '#0CAF60',
+        },
+        text: {
+          2: '#1D242D',
+          3: '#313A49',
         },
       },
       fontFamily: {

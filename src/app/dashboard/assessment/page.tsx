@@ -84,7 +84,7 @@ export default function Assessment() {
   const router = useRouter();
 
   const handleSubmit = () => {
-    router.push(ROUTES.GOALS);
+    router.push(ROUTES.ASSESSMENT_GOALS);
   };
 
   return (

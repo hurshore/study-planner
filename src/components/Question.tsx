@@ -25,7 +25,7 @@ type Props = {
 const Question = ({ chosenAnswer, question, showAnswer = false }: Props) => {
   return (
     <div className="rounded-2xl py-6 px-4 md:p-8 shadow bg-white">
-      <div className="flex md:text-lg mb-4">
+      <div className="flex md:text-lg mb-4 text-text-2">
         <p className="mr-1">{question.sn}.</p>
         <p>{question.question}</p>
       </div>
@@ -67,7 +67,7 @@ const Question = ({ chosenAnswer, question, showAnswer = false }: Props) => {
                 />
                 <label
                   htmlFor={optionId}
-                  className="text-sm md:text-base cursor-pointer"
+                  className="text-sm text-text-3 md:text-base cursor-pointer"
                 >
                   {option.option}
                 </label>

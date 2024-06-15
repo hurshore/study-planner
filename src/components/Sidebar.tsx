@@ -41,6 +41,7 @@ const Sidebar = ({}: Props) => {
 
           return (
             <NavLink
+              key={Link.name}
               href={Link.href}
               isActive={isActive}
               icon={<Link.icon className={className} />}

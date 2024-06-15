@@ -1,5 +1,6 @@
 export const ROUTES = {
   ASSESSMENT: '/dashboard/assessment',
+  ASSESSMENT_GOALS: '/dashboard/assessment/goals',
   DASHBOARD: '/dashboard',
   GOALS: '/dashboard/goals',
   HOME: '/',
