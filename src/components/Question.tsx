@@ -1,7 +1,5 @@
-import Image from 'next/image';
-// images
-import CheckIcon from '../assets/icons/check.svg';
-import CloseIcon from '../assets/icons/close.svg';
+import CheckIcon from './CheckIcon';
+import CloseIcon from './CloseIcon';
 
 type Option = {
   id: number;
@@ -41,14 +39,14 @@ const Question = ({ chosenAnswer, question, showAnswer = false }: Props) => {
             if (option.id === question.answer) {
               bg = 'bg-success-300';
               checkedDot = 'checked:before:bg-success-400';
-              icon = <Image src={CheckIcon} alt="check icon" />;
+              icon = <CheckIcon />;
               border =
                 option.id === chosenAnswer ? 'border-success-400' : border;
             } else if (option.id === chosenAnswer) {
               bg = 'bg-error-300';
               border = 'border-error-400';
               checkedDot = 'checked:before:bg-error-400';
-              icon = <Image src={CloseIcon} alt="check icon" />;
+              icon = <CloseIcon />;
             }
           }
 

@@ -1,10 +1,12 @@
 'use client';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import BreadCrumb from '@/components/BreadCrumb';
 import ButtonWithArrow from '@/components/ButtonWithArrow';
 import ProgressBar from '@/components/ProgressBar';
 import Question, { Question as QModel } from '@/components/Question';
+import { useHeader } from '@/context/HeaderContext';
 import { ROUTES } from '@/constants/navigation';
 
 const questions: QModel[] = [
@@ -79,9 +81,13 @@ const breadCrumbs = [
 
 const buttonLabel = 'Next';
 const currentStep = 2;
+const pageTitle = 'Assessment';
 
 export default function Assessment() {
+  const { setTitle } = useHeader();
   const router = useRouter();
+
+  useEffect(() => setTitle(pageTitle), []);
 
   const handleSubmit = () => {
     router.push(ROUTES.ASSESSMENT_GOALS);

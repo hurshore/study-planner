@@ -4,13 +4,13 @@ import HamburgerIcon from '@/assets/icons/hamburger.svg';
 import UserIcon from '@/assets/icons/user.svg';
 
 type Props = {
+  title: string;
   toggleSidebar: () => void;
 };
 
-const title = 'Home';
 const hamburgerAlt = 'menu';
 
-const Header = ({ toggleSidebar }: Props) => {
+const Header = ({ title, toggleSidebar }: Props) => {
   return (
     <header className="bg-white shadow py-3.5 px-4 md:px-10 md:ml-[273px] flex justify-between items-center">
       <div className="flex items-center">

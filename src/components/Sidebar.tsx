@@ -27,16 +27,12 @@ const Sidebar = ({ isOpen, toggleSidebar }: Props) => {
   };
 
   return (
-    <div
-      className={`fixed w-full min-h-screen md:block ${
-        isOpen ? 'block' : 'hidden'
-      }`}
-    >
+    <div className={`md:block ${isOpen ? 'block' : 'hidden'}`}>
       <div
         onClick={toggleSidebar}
-        className="absolute w-full h-full bg-black opacity-50 -z-10 md:hidden"
+        className="fixed w-full h-full bg-black opacity-50 md:hidden"
       />
-      <div className="min-h-screen bg-primary-400 text-white w-[273px] py-8 pl-8 z-1">
+      <div className="fixed min-h-screen bg-primary-400 text-white w-[273px] py-8 pl-8 z-1">
         <Image src={LogoLight} alt="logo" />
         <nav className="mt-20">
           {links.map((Link) => {

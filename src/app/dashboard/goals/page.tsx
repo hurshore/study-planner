@@ -1,7 +1,14 @@
+'use client';
+import { useEffect } from 'react';
+
+import { useHeader } from '@/context/HeaderContext';
+
+const pageTitle = 'Study Goals';
+
 export default function Goals() {
-  return (
-    <div>
-      <h1 className="text-2xl font-bold">Goals</h1>
-    </div>
-  );
+  const { setTitle } = useHeader();
+
+  useEffect(() => setTitle(pageTitle), []);
+
+  return <div></div>;
 }

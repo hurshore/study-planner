@@ -1,13 +1,16 @@
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import UploadBox from '@/components/UploadBox';
 import { ROUTES } from '@/constants/navigation';
+import { useHeader } from '@/context/HeaderContext';
 // images
 import ArrowRight from '@/assets/icons/arrow-right.svg';
 import HeaderIllustration from '@/assets/images/dashboard-home.svg';
 
+const pageTitle = 'Home';
 const welcomeMessage = 'Welcome back, Tofunmi';
 const addStudyGoals = 'Add study goals';
 const imageAlt = 'Header illustration';
@@ -15,7 +18,10 @@ const description =
   'Get exam-ready by adding your class notes. Create and tackle questions, set your study goals, and receive a custom study schedule.';
 
 export default function DashboardHome() {
+  const { setTitle } = useHeader();
   const router = useRouter();
+
+  useEffect(() => setTitle(pageTitle), []);
 
   const handleClick = () => {
     router.push(ROUTES.GOALS);
