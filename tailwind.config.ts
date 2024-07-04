@@ -15,15 +15,20 @@ const config: Config = {
           400: '#CBD5E0',
           500: '#A0AEC0',
           600: '#687588',
+          700: '#313A49',
           900: '#151A20',
         },
         primary: {
+          50: '#F2ECF9',
           100: '#C6ADE6',
           200: '#AC87DA',
           300: '#9363CF',
           400: '#7B41C5',
           500: '#6937A7',
           700: '#462570',
+        },
+        secondary: {
+          400: '#41C57B',
         },
         error: {
           300: '#FFECEB',
@@ -35,7 +40,6 @@ const config: Config = {
         },
         text: {
           2: '#1D242D',
-          3: '#313A49',
         },
       },
       fontFamily: {

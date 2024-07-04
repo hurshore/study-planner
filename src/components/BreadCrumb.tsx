@@ -21,7 +21,7 @@ const BreadCrumb = ({ items }: Props) => {
   };
 
   return (
-    <div className="flex items-center space-x-2 text-text-3 font-medium">
+    <div className="flex items-center space-x-2 text-grey-700 font-medium">
       <div className="flex items-center space-x-2">
         <p
           onClick={() => handleClick(firstItem.path)}

@@ -7,4 +7,5 @@ export const ROUTES = {
   LOGIN: '/login',
   QUESTIONS: '/dashboard/questions',
   REGISTER: '/register',
+  STUDY_PLAN: '/dashboard/plan',
 } as const;

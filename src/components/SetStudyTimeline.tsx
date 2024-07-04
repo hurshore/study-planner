@@ -33,7 +33,7 @@ const SetStudyTimeline = () => {
     <div className="flex-1 bg-white px-4 py-10 lg:px-8 rounded-2xl shadow">
       <div className="mb-6">
         <h3 className="text-2xl text-primary-700 font-bold mb-2">{heading}</h3>
-        <p className="text-text-3 font-medium">{subheading}</p>
+        <p className="text-grey-700 font-medium">{subheading}</p>
       </div>
 
       <hr className="bg-grey-300 mt-6 mb-4 lg:mt-8" />
@@ -44,7 +44,7 @@ const SetStudyTimeline = () => {
           <h4 className="text-lg text-text-2 font-semibold">
             {planDurationHeading}
           </h4>
-          <p className="text-sm text-text-3 font-medium">
+          <p className="text-sm text-grey-700 font-medium">
             {planDurationSubheading}
           </p>
         </div>
@@ -71,7 +71,7 @@ const SetStudyTimeline = () => {
         <div className="mb-4">
           <Image src={ClockIcon} alt="hours icon" />
           <h4 className="text-lg text-text-2 font-semibold">{hoursHeading}</h4>
-          <p className="text-sm text-text-3 font-medium">{hoursSubheading}</p>
+          <p className="text-sm text-grey-700 font-medium">{hoursSubheading}</p>
         </div>
 
         <div className="flex items-center gap-4 mb-2">
@@ -92,7 +92,7 @@ const SetStudyTimeline = () => {
           <h4 className="text-lg text-text-2 font-semibold">
             {scheduleHeading}
           </h4>
-          <p className="text-sm text-text-3 font-medium">
+          <p className="text-sm text-grey-700 font-medium">
             {scheduleSubheading}
           </p>
         </div>

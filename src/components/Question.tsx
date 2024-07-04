@@ -57,6 +57,7 @@ const Question = ({ chosenAnswer, question, showAnswer = false }: Props) => {
             >
               <div className="flex items-center">
                 <input
+                  readOnly
                   type="radio"
                   id={optionId}
                   name={question.id.toString()}
@@ -65,7 +66,7 @@ const Question = ({ chosenAnswer, question, showAnswer = false }: Props) => {
                 />
                 <label
                   htmlFor={optionId}
-                  className="text-sm text-text-3 md:text-base cursor-pointer"
+                  className="text-sm text-grey-700 md:text-base cursor-pointer"
                 >
                   {option.option}
                 </label>

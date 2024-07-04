@@ -43,7 +43,7 @@ const AssessmentSummary = ({ goals, addGoal }: Props) => {
           <h3 className="text-xl lg:text-2xl text-primary-700 font-bold mb-2">
             {heading}
           </h3>
-          <p className="text-sm lg:text-base text-text-3 font-medium">
+          <p className="text-sm lg:text-base text-grey-700 font-medium">
             {subheading}
           </p>
         </div>
@@ -51,7 +51,7 @@ const AssessmentSummary = ({ goals, addGoal }: Props) => {
           <p className="font-semibold mb-2 text-text-2 lg:text-lg">
             {strengthHeading}
           </p>
-          <p className="text-sm lg:text-base font-medium text-text-3">
+          <p className="text-sm lg:text-base font-medium text-grey-700">
             {strengths}
           </p>
         </div>
@@ -59,7 +59,7 @@ const AssessmentSummary = ({ goals, addGoal }: Props) => {
           <p className="font-semibold mb-2 text-text-2 lg:text-lg">
             {improvementHeading}
           </p>
-          <p className="text-sm lg:text-base font-medium text-text-3">
+          <p className="text-sm lg:text-base font-medium text-grey-700">
             {improvements}
           </p>
         </div>

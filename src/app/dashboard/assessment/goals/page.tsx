@@ -15,7 +15,7 @@ import { ROUTES } from '@/constants/navigation';
 const breadCrumbs = [
   { name: 'Home', path: ROUTES.DASHBOARD, isActive: false },
   { name: 'Questions', path: ROUTES.QUESTIONS, isActive: false },
-  { name: 'Assessment', path: ROUTES.ASSESSMENT, isActive: true },
+  { name: 'Assessment', path: ROUTES.ASSESSMENT, isActive: false },
   { name: 'Study Goals', path: ROUTES.ASSESSMENT_GOALS, isActive: true },
 ];
 
@@ -31,7 +31,7 @@ export default function AssessmentGoals() {
   useEffect(() => setTitle(pageTitle), []);
 
   const handleSubmit = () => {
-    router.push(ROUTES.ASSESSMENT_GOALS);
+    router.push(ROUTES.STUDY_PLAN);
   };
 
   const addGoal = (goal: string, id?: string) => {
@@ -54,7 +54,11 @@ export default function AssessmentGoals() {
       <ProgressBar currentStep={currentStep} />
       <AssessmentSummary goals={goals} addGoal={addGoal} />
       <div className="flex flex-col lg:flex-row gap-4">
-        <SetStudyGoals goals={goals} removeGoal={removeGoal} />
+        <SetStudyGoals
+          goals={goals}
+          removeGoal={removeGoal}
+          addGoal={addGoal}
+        />
         <SetStudyTimeline />
       </div>
     </div>
