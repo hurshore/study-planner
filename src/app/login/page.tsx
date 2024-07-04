@@ -16,8 +16,6 @@ const forgotPassword = 'Forgot password?';
 const submitBtn = 'Sign in';
 const logoAlt = 'Logo';
 const illustrationAlt = 'Illustration';
-const illustrationHeading = 'Build your Personal Study Plan';
-const illustrationSubheading = 'Sign in to get started';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -61,21 +59,9 @@ const LoginPage = () => {
           </form>
         </div>
       </section>
-      <section className="hidden lg:flex flex-1 flex-col bg-primary-400 rounded-lg pt-[98px] min-h-full max-h-full">
-        <div className="px-[68px]">
-          <h1 className="text-5xl font-bold text-white">
-            {illustrationHeading}
-          </h1>
-          <p className="text-lg my-4 text-grey-300">{illustrationSubheading}</p>
-        </div>
-        <div className="flex flex-1 relative">
-          <Image
-            src={Illustration}
-            alt={illustrationAlt}
-            className="w-full absolute"
-          />
-        </div>
-      </section>
+      <div className="hidden lg:flex flex-1">
+        <Image src={Illustration} alt={illustrationAlt} />
+      </div>
     </main>
   );
 };
