@@ -28,7 +28,12 @@ const days = [
   'Sunday',
 ];
 
-const SetStudyTimeline = () => {
+type Props = {
+  selectedDays: string[];
+  toggleDay: (day: string) => void;
+};
+
+const SetStudyTimeline = ({ selectedDays, toggleDay }: Props) => {
   return (
     <div className="flex-1 bg-white px-4 py-10 lg:px-8 rounded-2xl shadow">
       <div className="mb-6">
@@ -98,16 +103,24 @@ const SetStudyTimeline = () => {
         </div>
 
         <div className="flex flex-wrap gap-4">
-          {days.map((day) => (
-            <div
-              key={day}
-              className="flex basis-[calc(50%-0.5rem)] lg:basis-[calc((100%-2rem)/3)] items-center justify-center px-2 py-2 border border-grey-400 rounded-lg cursor-pointer"
-            >
-              <p className="text-xs text-grey-900 text-center font-semibold">
-                {day}
-              </p>
-            </div>
-          ))}
+          {days.map((day) => {
+            const isSelected = selectedDays.includes(day);
+            const bg = isSelected ? 'bg-primary-400' : 'bg-white';
+            const textColor = isSelected ? 'text-white' : 'text-grey-900';
+            return (
+              <div
+                key={day}
+                onClick={() => toggleDay(day)}
+                className={`flex basis-[calc(50%-0.5rem)] lg:basis-[calc((100%-2rem)/3)] items-center justify-center px-2 py-2 border border-grey-400 rounded-lg cursor-pointer ${bg}`}
+              >
+                <p
+                  className={`text-xs text-grey-900 text-center font-semibold ${textColor}`}
+                >
+                  {day}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

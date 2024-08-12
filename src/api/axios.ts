@@ -1,18 +1,18 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { API_URL } from './constants';
 
-interface ApiResponse<T = any> {
+type ApiResponse<T = any> = {
   success: boolean;
   data: T;
   message: string;
-}
+};
 
 const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamFuZWRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyMzQzMTg2NCwiZXhwIjoxNzI0MDM2NjY0fQ.yaBiw7N66zUKaBWiGx4bjhMINona1-k_K4Wf4TWQ1UQ';
 
 const instance = axios.create({
   baseURL: API_URL,
-  timeout: 5000,
+  timeout: 30000,
   headers: { Authorization: 'Bearer ' + token },
 });
 

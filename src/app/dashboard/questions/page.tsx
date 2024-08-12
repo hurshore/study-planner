@@ -1,77 +1,20 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 import BreadCrumb from '@/components/BreadCrumb';
 import ButtonWithArrow from '@/components/ButtonWithArrow';
+import FullScreenLoader from '@/components/FullScreenLoader';
 import ProgressBar from '@/components/ProgressBar';
 import Question, { Question as QModel } from '@/components/Question';
+import useBooleanState from '@/hooks/useBooleanState';
 import { useHeader } from '@/context/HeaderContext';
 import { ROUTES } from '@/constants/navigation';
-
-const questions: QModel[] = [
-  {
-    id: 1,
-    sn: 1,
-    question: 'What does CSS stand for?',
-    options: [
-      { id: 1, option: 'Computer Style Sheets' },
-      { id: 2, option: 'Creative Style Sheets' },
-      { id: 3, option: 'Cascading Style Sheets' },
-      { id: 4, option: 'Colorful Style Sheets' },
-    ],
-    answer: 3,
-  },
-  {
-    id: 2,
-    sn: 2,
-    question:
-      'Where in an HTML document is the correct place to refer to an external style sheet?',
-    options: [
-      { id: 1, option: 'In the <head> section' },
-      { id: 2, option: 'At the end of the document' },
-      { id: 3, option: 'In the <body> section' },
-      { id: 4, option: 'In the <footer> section' },
-    ],
-    answer: 1,
-  },
-  {
-    id: 3,
-    sn: 3,
-    question: 'Which HTML tag is used to define an internal style sheet?',
-    options: [
-      { id: 1, option: '<style>' },
-      { id: 2, option: '<script>' },
-      { id: 3, option: '<head>' },
-      { id: 4, option: '<css>' },
-    ],
-    answer: 1,
-  },
-  {
-    id: 4,
-    sn: 4,
-    question: 'Which is the correct CSS syntax?',
-    options: [
-      { id: 1, option: '{body:color=black;}' },
-      { id: 2, option: 'body:color=black;' },
-      { id: 3, option: '{body;color:black;}' },
-      { id: 4, option: 'body {color: black;}' },
-    ],
-    answer: 4,
-  },
-  {
-    id: 5,
-    sn: 5,
-    question: 'How do you insert a comment in a CSS file?',
-    options: [
-      { id: 1, option: '// this is a comment //' },
-      { id: 2, option: '/* this is a comment */' },
-      { id: 3, option: '// this is a comment' },
-      { id: 4, option: '<!-- this is a comment -->' },
-    ],
-    answer: 2,
-  },
-];
+import { getItemFromLS, setItemInLS } from '@/util/localStorage';
+import { LOCAL_STORAGE_KEYS } from '@/constants/localStorage';
+import { ENDPONTS } from '@/api/constants';
+import { postData } from '@/api/axios';
 
 const breadCrumbs = [
   { name: 'Home', path: ROUTES.DASHBOARD, isActive: false },
@@ -81,15 +24,108 @@ const breadCrumbs = [
 const currentStep = 1;
 const buttonLabel = 'Submit';
 const pageTitle = 'Questions';
+const numQuestions = 20;
+
+// TODO: add type to separate file
+export type ChosenAnswer = {
+  questionId: number;
+  chosenAnswer: number;
+};
+
+type QuizSubmissionResData = {
+  id: number;
+  score: number;
+  total: number;
+};
 
 export default function Questions() {
+  const [questions, setQuestions] = useState<QModel[]>([]);
+  const [chosenAnswers, setChosenAnswers] = useState<ChosenAnswer[]>([]);
+  const [isLoading, startLoading, stopLoading] = useBooleanState();
+  const [loadingText, setLoadingText] = useState<string>();
+  const courseId = getItemFromLS<number>(LOCAL_STORAGE_KEYS.courseId);
+  const initialized = useRef(false);
   const { setTitle } = useHeader();
   const router = useRouter();
 
   useEffect(() => setTitle(pageTitle), []);
 
-  const handleSubmit = () => {
-    router.push(ROUTES.ASSESSMENT);
+  useEffect(() => {
+    if (initialized.current) {
+      return;
+    }
+
+    initialized.current = true;
+
+    if (!courseId) {
+      router.push(ROUTES.DASHBOARD);
+      return;
+    }
+
+    generateQuestions(courseId);
+  }, []);
+
+  const generateQuestions = async (courseId: number) => {
+    try {
+      setLoadingText('Generating questions...');
+      startLoading();
+      const response = await postData<QModel[]>(ENDPONTS.GENERATE_QUESTIONS, {
+        courseId,
+        numQuestions,
+      });
+      stopLoading();
+
+      if (!response.success) {
+        toast.error(response.message);
+        return;
+      }
+
+      setQuestions(response.data);
+    } catch (err) {
+      stopLoading();
+      console.error(err);
+    }
+  };
+
+  const addAnswer = (questionId: number, chosenAnswer: number) => {
+    const index = chosenAnswers.findIndex(
+      (item) => item.questionId === questionId
+    );
+    if (index === -1) {
+      setChosenAnswers([...chosenAnswers, { questionId, chosenAnswer }]);
+    } else {
+      const newChosenAnswers = [...chosenAnswers];
+      newChosenAnswers[index].chosenAnswer = chosenAnswer;
+      setChosenAnswers(newChosenAnswers);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoadingText('Submitting answers...');
+      startLoading();
+      const response = await postData<QuizSubmissionResData>(
+        ENDPONTS.ASSESSMENT,
+        {
+          answers: chosenAnswers,
+          courseId,
+        }
+      );
+      stopLoading();
+
+      if (!response.success) {
+        toast.error(response.message);
+        return;
+      }
+
+      setItemInLS(LOCAL_STORAGE_KEYS.questions, questions);
+      setItemInLS(LOCAL_STORAGE_KEYS.chosenAnswers, chosenAnswers);
+      setItemInLS(LOCAL_STORAGE_KEYS.assessmentId, response.data.id);
+      router.push(ROUTES.ASSESSMENT);
+    } catch (err) {
+      stopLoading();
+      console.error(err);
+    }
   };
 
   return (
@@ -100,10 +136,17 @@ export default function Questions() {
       </div>
       <ProgressBar currentStep={currentStep} />
       <div className="flex flex-col gap-4">
-        {questions.map((item) => (
-          <Question key={item.sn} question={item} />
+        {questions.map((item, index) => (
+          <Question
+            key={item.id}
+            question={item}
+            sn={index + 1}
+            addAnswer={addAnswer}
+          />
         ))}
       </div>
+
+      <FullScreenLoader isLoading={isLoading} loadingText={loadingText} />
     </div>
   );
 }

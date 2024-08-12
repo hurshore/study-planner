@@ -54,7 +54,10 @@ const SetStudyGoals = ({ goals, addGoal, removeGoal }: Props) => {
       {goals.length > 0 ? (
         <div className="flex flex-col gap-2">
           {goals.map((goal) => (
-            <div className="flex items-center justify-center p-4 rounded-lg border border-grey-500">
+            <div
+              className="flex items-center justify-center p-4 rounded-lg border border-grey-500"
+              key={goal.id}
+            >
               <p className="flex-1 text-sm lg:text-base text-grey-700 font-medium">
                 {goal.goal}
               </p>
