@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import dayjs from 'dayjs';
 // images
 import ClockIcon from '@/assets/icons/clock.svg';
 import DurationIcon from '@/assets/icons/duration.svg';
@@ -9,8 +10,8 @@ const subheading = 'Fix dates, time and weekly schedule for your study plan';
 const planDurationHeading = 'Plan Duration';
 const planDurationSubheading =
   'Set the start and end dates for your study plan';
-const startDate = 'Start date';
-const endDate = 'End date';
+const startDateLabel = 'Start date';
+const endDateLabel = 'End date';
 const hoursHeading = 'Weekly Hours';
 const hoursSubheading = 'Input the number of hours to study each week';
 const hoursInputLabel = 'Hours per week';
@@ -30,10 +31,47 @@ const days = [
 
 type Props = {
   selectedDays: string[];
+  startDate: string;
+  endDate: string;
+  weeklyHours: number;
+  setStartDate: (date: string) => void;
+  setEndDate: (date: string) => void;
+  setWeeklyHours: (hours: number) => void;
   toggleDay: (day: string) => void;
 };
 
-const SetStudyTimeline = ({ selectedDays, toggleDay }: Props) => {
+const SetStudyTimeline = ({
+  selectedDays,
+  startDate,
+  endDate,
+  weeklyHours,
+  setStartDate,
+  setEndDate,
+  setWeeklyHours,
+  toggleDay,
+}: Props) => {
+  const today = dayjs().format('YYYY-MM-DD');
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === 'startDate') {
+      const newStartDate = e.target.value;
+      setStartDate(newStartDate);
+      // if end date is before new start date, update it
+      if (dayjs(endDate).isBefore(dayjs(newStartDate))) {
+        setEndDate(dayjs(newStartDate).add(1, 'day').format('YYYY-MM-DD'));
+      }
+    } else if (e.target.name === 'endDate') {
+      const newEndDate = e.target.value;
+      if (
+        dayjs(newEndDate).isAfter(dayjs(startDate)) ||
+        dayjs(newEndDate).isSame(dayjs(startDate))
+      ) {
+        setEndDate(newEndDate);
+      }
+    } else if (e.target.name === 'weeklyHours') {
+      setWeeklyHours(Number(e.target.value));
+    }
+  };
+
   return (
     <div className="flex-1 bg-white px-4 py-10 lg:px-8 rounded-2xl shadow">
       <div className="mb-6">
@@ -55,16 +93,28 @@ const SetStudyTimeline = ({ selectedDays, toggleDay }: Props) => {
         </div>
 
         <div className="flex items-center gap-4 mb-2">
-          <p className="text-sm text-text-2 font-medium">{startDate}</p>
+          <p className="text-sm text-text-2 font-medium">{startDateLabel}</p>
           <input
+            name="startDate"
             type="date"
+            value={startDate}
+            min={today}
+            onChange={handleInputChange}
             className="border border-grey-400 rounded-lg p-4 text-sm outline-none"
           />
         </div>
         <div className="flex items-center gap-4">
-          <p className="text-sm text-text-2 font-medium">{endDate}</p>
+          <p className="text-sm text-text-2 font-medium">{endDateLabel}</p>
           <input
             type="date"
+            name="endDate"
+            value={endDate}
+            onChange={handleInputChange}
+            min={
+              dayjs(startDate).isValid()
+                ? dayjs(startDate).format('YYYY-MM-DD')
+                : today
+            }
             className="border border-grey-400 rounded-lg p-4 text-sm outline-none"
           />
         </div>
@@ -83,6 +133,10 @@ const SetStudyTimeline = ({ selectedDays, toggleDay }: Props) => {
           <p className="text-sm text-text-2 font-medium">{hoursInputLabel}</p>
           <input
             type="number"
+            name="weeklyHours"
+            min={1}
+            value={weeklyHours}
+            onChange={handleInputChange}
             placeholder={hoursPlaceholder}
             className="border border-grey-400 rounded-lg text-sm outline-none p-4 w-[3.875rem] h-[3.375rem] text-center"
           />

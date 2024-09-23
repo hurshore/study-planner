@@ -8,11 +8,11 @@ type ApiResponse<T = any> = {
 };
 
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamFuZWRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyMzQzMTg2NCwiZXhwIjoxNzI0MDM2NjY0fQ.yaBiw7N66zUKaBWiGx4bjhMINona1-k_K4Wf4TWQ1UQ';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamFuZWRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyMzU3MTA2NywiZXhwIjoxNzI0MTc1ODY3fQ.Auz4esjWJElQcp1HooJyPt-6nWk9LX8x-dwMAxraefo';
 
 const instance = axios.create({
   baseURL: API_URL,
-  timeout: 30000,
+  timeout: 60000,
   headers: { Authorization: 'Bearer ' + token },
 });
 

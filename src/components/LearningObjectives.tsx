@@ -60,7 +60,16 @@ const objectives = [
   },
 ];
 
-const LearningObjectives = () => {
+export type LearningObjective = {
+  week: number;
+  objectives: string[];
+};
+
+type Props = {
+  objectives?: LearningObjective[];
+};
+
+const LearningObjectives = ({ objectives }: Props) => {
   return (
     <StudyPlanBox>
       <StudyBoxColOne>
@@ -77,26 +86,30 @@ const LearningObjectives = () => {
 
       <StudyBoxColTwo>
         <div className="flex flex-col gap-4 p-2">
-          {objectives.map((objective) => (
-            <div key={objective.id}>
-              <div className="flex items-center">
-                <div className="w-4 h-4 rounded mr-2 bg-secondary-400" />
-                <p className="font-bold text-text-2">Week {objective.week}</p>
-              </div>
+          {objectives ? (
+            objectives.map((objective) => (
+              <div key={objective.week}>
+                <div className="flex items-center">
+                  <div className="w-4 h-4 rounded mr-2 bg-secondary-400" />
+                  <p className="font-bold text-text-2">Week {objective.week}</p>
+                </div>
 
-              <div className="pl-1">
-                {objective.objectives.map((objective) => (
-                  <div
-                    key={objective.id}
-                    className="flex font-medium text-grey-700 text-sm lg:text-base"
-                  >
-                    <p className="mr-2">•</p>
-                    <p className="flex-1">{objective.text}</p>
-                  </div>
-                ))}
+                <div className="pl-1">
+                  {objective.objectives.map((objective, index) => (
+                    <div
+                      key={objective + index}
+                      className="flex font-medium text-grey-700 text-sm lg:text-base"
+                    >
+                      <p className="mr-2">•</p>
+                      <p className="flex-1">{objective}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div></div>
+          )}
         </div>
       </StudyBoxColTwo>
     </StudyPlanBox>

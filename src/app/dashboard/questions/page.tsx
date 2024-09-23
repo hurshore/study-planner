@@ -38,6 +38,12 @@ type QuizSubmissionResData = {
   total: number;
 };
 
+const loadingMessages = [
+  'Generating questions...',
+  'Please wait...',
+  "We're almost there...",
+];
+
 export default function Questions() {
   const [questions, setQuestions] = useState<QModel[]>([]);
   const [chosenAnswers, setChosenAnswers] = useState<ChosenAnswer[]>([]);
@@ -45,6 +51,7 @@ export default function Questions() {
   const [loadingText, setLoadingText] = useState<string>();
   const courseId = getItemFromLS<number>(LOCAL_STORAGE_KEYS.courseId);
   const initialized = useRef(false);
+  const isLoadingRef = useRef(false);
   const { setTitle } = useHeader();
   const router = useRouter();
 
@@ -69,10 +76,20 @@ export default function Questions() {
     try {
       setLoadingText('Generating questions...');
       startLoading();
+      isLoadingRef.current = true;
+
+      const interval = setInterval(() => {
+        if (isLoadingRef.current) {
+          const messages = loadingMessages.filter((msg) => msg !== loadingText);
+          setLoadingText(messages[Math.floor(Math.random() * messages.length)]);
+        }
+      }, 10000);
+
       const response = await postData<QModel[]>(ENDPONTS.GENERATE_QUESTIONS, {
         courseId,
         numQuestions,
       });
+      clearInterval(interval);
       stopLoading();
 
       if (!response.success) {
@@ -130,7 +147,7 @@ export default function Questions() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 sticky top-0 bg-grey-100">
         <BreadCrumb items={breadCrumbs} />
         <ButtonWithArrow onClick={handleSubmit}>{buttonLabel}</ButtonWithArrow>
       </div>

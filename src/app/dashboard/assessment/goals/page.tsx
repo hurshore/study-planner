@@ -7,16 +7,18 @@ import { toast } from 'react-toastify';
 import AssessmentSummary, { Assessment } from '@/components/AssessmentSummary';
 import BreadCrumb from '@/components/BreadCrumb';
 import ButtonWithArrow from '@/components/ButtonWithArrow';
+import FullScreenLoader from '@/components/FullScreenLoader';
 import ProgressBar from '@/components/ProgressBar';
 import SetStudyGoals, { Goal } from '@/components/SetStudyGoals';
 import SetStudyTimeline from '@/components/SetStudyTimeline';
 import useBooleanState from '@/hooks/useBooleanState';
+import { getItemFromLS, setItemInLS } from '@/util/localStorage';
 import { LOCAL_STORAGE_KEYS } from '@/constants/localStorage';
 import { useHeader } from '@/context/HeaderContext';
-import { getItemFromLS } from '@/util/localStorage';
+import { fetchData, postData } from '@/api/axios';
+import { StudyPlanData } from '../../plan/page';
 import { ROUTES } from '@/constants/navigation';
 import { ENDPONTS } from '@/api/constants';
-import { fetchData } from '@/api/axios';
 
 const breadCrumbs = [
   { name: 'Home', path: ROUTES.DASHBOARD, isActive: false },
@@ -28,19 +30,24 @@ const breadCrumbs = [
 const buttonLabel = 'Next';
 const currentStep = 3;
 const pageTitle = 'Study Goals';
+const submittingText = 'Generating Study Plan...';
 
 export default function AssessmentGoals() {
   const [, startLoading, stopLoading] = useBooleanState();
+  const [isSubmitting, startSubmitting, stopSubmitting] = useBooleanState();
   const [assessment, setAssessment] = useState<Assessment>();
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [weeklyHours, setWeeklyHours] = useState<number>(0);
   const [goals, setGoals] = useState<Goal[]>([]);
   const { setTitle } = useHeader();
   const router = useRouter();
+  const assessmentId = getItemFromLS<number>(LOCAL_STORAGE_KEYS.assessmentId);
 
   useEffect(() => setTitle(pageTitle), []);
 
   useEffect(() => {
-    const assessmentId = getItemFromLS<number>(LOCAL_STORAGE_KEYS.assessmentId);
     if (!assessmentId) {
       router.push(ROUTES.DASHBOARD);
       return;
@@ -69,8 +76,35 @@ export default function AssessmentGoals() {
     }
   };
 
-  const handleSubmit = () => {
-    router.push(ROUTES.STUDY_PLAN);
+  const handleSubmit = async () => {
+    const data = {
+      assessmentId,
+      studyGoals: goals.map((goal) => goal.goal),
+      startDate,
+      endDate,
+      weeklyHours,
+      availableDays: selectedDays,
+    };
+
+    try {
+      startSubmitting();
+      const response = await postData<StudyPlanData>(
+        ENDPONTS.GENERATE_PLAN,
+        data
+      );
+      stopSubmitting();
+
+      if (!response.success) {
+        toast.error(response.message);
+        return;
+      }
+
+      setItemInLS(LOCAL_STORAGE_KEYS.studyPlan, response.data);
+      router.push(ROUTES.STUDY_PLAN);
+    } catch (err) {
+      stopSubmitting();
+      console.error(err);
+    }
   };
 
   const addGoal = (goal: string, id?: string) => {
@@ -110,8 +144,18 @@ export default function AssessmentGoals() {
           removeGoal={removeGoal}
           addGoal={addGoal}
         />
-        <SetStudyTimeline selectedDays={selectedDays} toggleDay={toggleDay} />
+        <SetStudyTimeline
+          selectedDays={selectedDays}
+          startDate={startDate}
+          endDate={endDate}
+          weeklyHours={weeklyHours}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setWeeklyHours={setWeeklyHours}
+          toggleDay={toggleDay}
+        />
       </div>
+      <FullScreenLoader isLoading={isSubmitting} loadingText={submittingText} />
     </div>
   );
 }

@@ -15,7 +15,7 @@ type Props = {
 
 const links = [
   { name: 'Home', href: ROUTES.DASHBOARD, icon: HomeIcon },
-  { name: 'Study Goals', href: ROUTES.GOALS, icon: GoalIcon },
+  // { name: 'Study Goals', href: ROUTES.GOALS, icon: GoalIcon },
 ];
 
 const Sidebar = ({ isOpen, toggleSidebar }: Props) => {
@@ -36,10 +36,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: Props) => {
         <Image src={LogoLight} alt="logo" />
         <nav className="mt-20">
           {links.map((Link) => {
-            const isActive =
-              Link.href === ROUTES.GOALS
-                ? pathname === ROUTES.GOALS
-                : pathname !== ROUTES.GOALS;
+            const isActive = true;
             const className = isActive
               ? colorVariants.primary
               : colorVariants.white;
