@@ -7,6 +7,9 @@ type Props = {
   endDate?: string;
 };
 
+const message =
+  'Your detailed 3-week study plan from June 1, 2024, to June 27, 2024; created to provide a strategic path to your educational goals';
+
 const StudyPlanHeader = ({ startDate, endDate }: Props) => {
   function generateStudyPlanString(props: Props): string {
     const start = props.startDate ? dayjs(props.startDate) : dayjs();
@@ -22,7 +25,7 @@ const StudyPlanHeader = ({ startDate, endDate }: Props) => {
     return `Your detailed ${durationText} study plan from ${formattedStart}, to ${formattedEnd}; created to provide a strategic path to your educational goals`;
   }
 
-  const message = generateStudyPlanString({ startDate, endDate });
+  // const message = generateStudyPlanString({ startDate, endDate });
 
   return (
     <div className="text-center p-4 mb-6 lg:mb-12 bg-primary-50 border border-primary-400 rounded-lg">

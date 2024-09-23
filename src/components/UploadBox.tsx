@@ -35,6 +35,9 @@ const UploadBox = () => {
   });
 
   const handleUpload = async () => {
+    router.push(ROUTES.QUESTIONS);
+    return;
+
     if (!file) {
       open();
       return;
@@ -43,7 +46,7 @@ const UploadBox = () => {
     try {
       startLoading();
       const formData = new FormData();
-      formData.append('file', file);
+      // formData.append('file', file);
       const response = await postData<{ courseId: number }>(
         ENDPONTS.FILE_UPLOAD,
         formData,

@@ -16,9 +16,9 @@ import { getItemFromLS, setItemInLS } from '@/util/localStorage';
 import { LOCAL_STORAGE_KEYS } from '@/constants/localStorage';
 import { useHeader } from '@/context/HeaderContext';
 import { fetchData, postData } from '@/api/axios';
-import { StudyPlanData } from '../../plan/page';
 import { ROUTES } from '@/constants/navigation';
 import { ENDPONTS } from '@/api/constants';
+import { StudyPlanData } from '../../plan/page';
 
 const breadCrumbs = [
   { name: 'Home', path: ROUTES.DASHBOARD, isActive: false },
@@ -47,14 +47,14 @@ export default function AssessmentGoals() {
 
   useEffect(() => setTitle(pageTitle), []);
 
-  useEffect(() => {
-    if (!assessmentId) {
-      router.push(ROUTES.DASHBOARD);
-      return;
-    }
+  // useEffect(() => {
+  //   if (!assessmentId) {
+  //     router.push(ROUTES.DASHBOARD);
+  //     return;
+  //   }
 
-    generateAssessment(assessmentId);
-  }, []);
+  //   generateAssessment(assessmentId);
+  // }, []);
 
   const generateAssessment = async (assessmentId: number) => {
     try {
@@ -77,6 +77,9 @@ export default function AssessmentGoals() {
   };
 
   const handleSubmit = async () => {
+    router.push(ROUTES.STUDY_PLAN);
+    return;
+
     const data = {
       assessmentId,
       studyGoals: goals.map((goal) => goal.goal),
@@ -128,7 +131,7 @@ export default function AssessmentGoals() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 bg-grey-100 z-10 p-2">
         <BreadCrumb items={breadCrumbs} />
         <ButtonWithArrow onClick={handleSubmit}>{buttonLabel}</ButtonWithArrow>
       </div>

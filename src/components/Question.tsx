@@ -26,6 +26,7 @@ const Question = ({
   sn,
   addAnswer,
 }: Props) => {
+  console.log(chosenAnswer);
   const handleAnswer = (questionId: number, chosenAnswer: number) => {
     if (addAnswer) {
       addAnswer(questionId, chosenAnswer);

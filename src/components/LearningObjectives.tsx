@@ -7,55 +7,36 @@ const heading = 'Learning Objectives';
 const subheading =
   'Your study plan has been personalized and generated based on the goals you added';
 
-const objectives = [
+const objectives: LearningObjective[] = [
   {
-    id: uuidv4(),
     week: 1,
     objectives: [
-      { id: uuidv4(), text: 'Complete CSS Basics tutorial on MDN.' },
-      { id: uuidv4(), text: 'Practice CSS selectors and combinators.' },
-      { id: uuidv4(), text: 'Build a simple webpage using basic CSS.' },
+      'Complete CSS Basics tutorial on MDN.',
+      'Practice CSS selectors and combinators.',
+      'Build a simple webpage using basic CSS.',
     ],
   },
   {
-    id: uuidv4(),
     week: 2,
     objectives: [
-      {
-        id: uuidv4(),
-        text: 'Learn about CSS Flexbox, including its properties and how it can be used to create flexible layouts.',
-      },
-      {
-        id: uuidv4(),
-        text: 'Complete Flexbox Froggy game to reinforce your understanding of Flexbox properties and how they work in practical scenarios.',
-      },
-      {
-        id: uuidv4(),
-        text: 'Apply Flexbox to a webpage layout by redesigning a simple webpage to use Flexbox for its layout.',
-      },
+      'Learn about CSS Flexbox, including its properties and how it can be used to create flexible layouts.',
+      'Complete Flexbox Froggy game to reinforce your understanding of Flexbox properties and how they work in practical scenarios.',
+      'Apply Flexbox to a webpage layout by redesigning a simple webpage to use Flexbox for its layout.',
     ],
   },
   {
-    id: uuidv4(),
     week: 3,
     objectives: [
-      {
-        id: uuidv4(),
-        text: 'Study CSS Grid layout in depth, exploring its various properties and how it differs from Flexbox.',
-      },
-      {
-        id: uuidv4(),
-        text: 'Complete Grid Garden game to gain hands-on experience with CSS Grid properties and layout techniques.',
-      },
+      'Study CSS Grid layout in depth, exploring its various properties and how it differs from Flexbox.',
+      'Complete Grid Garden game to gain hands-on experience with CSS Grid properties and layout techniques.',
     ],
   },
   {
-    id: uuidv4(),
     week: 4,
     objectives: [
-      { id: uuidv4(), text: 'Dive into responsive design principles.' },
-      { id: uuidv4(), text: 'Implement media queries in your projects.' },
-      { id: uuidv4(), text: 'Explore CSS animations and transitions.' },
+      'Dive into responsive design principles.',
+      'Implement media queries in your projects.',
+      'Explore CSS animations and transitions.',
     ],
   },
 ];
@@ -69,7 +50,7 @@ type Props = {
   objectives?: LearningObjective[];
 };
 
-const LearningObjectives = ({ objectives }: Props) => {
+const LearningObjectives = ({}: Props) => {
   return (
     <StudyPlanBox>
       <StudyBoxColOne>

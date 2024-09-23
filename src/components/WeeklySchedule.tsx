@@ -14,7 +14,14 @@ type Props = {
   schedule?: Schedule;
 };
 
-const WeeklySchedule = ({ schedule }: Props) => {
+const schedule: Schedule = {
+  Monday: 2,
+  Wednesday: 3,
+  Friday: 3,
+  Saturday: 2,
+};
+
+const WeeklySchedule = ({}: Props) => {
   return (
     <StudyPlanBox>
       <StudyBoxColOne>

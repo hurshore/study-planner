@@ -4,12 +4,19 @@ import StudyPlanBox, { StudyBoxColOne, StudyBoxColTwo } from './StudyPlanBox';
 const heading = 'Goals';
 const subheading =
   'Your study plan has been personalized and generated based on the goals you added';
+const goals: string[] = [
+  'Focus on CSS Flexbox and Grid layout',
+  'Complete CSS challenges on CodePen',
+  'Learn Advanced CSS Selectors and Combinators for More Precise Styling',
+  'In-Depth Learning of CSS Flexbox and Grid Layout Systems for Advanced Page Structuring',
+  'Practice creating responsive web pages',
+];
 
 type Props = {
   goals?: string[];
 };
 
-const StudyGoals = ({ goals }: Props) => {
+const StudyGoals = ({}: Props) => {
   return (
     <StudyPlanBox>
       <StudyBoxColOne>

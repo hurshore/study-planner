@@ -43,15 +43,15 @@ export default function Plan() {
 
   useEffect(() => setTitle(pageTitle), []);
 
-  useEffect(() => {
-    const studyPlan = getItemFromLS<StudyPlanData>(
-      LOCAL_STORAGE_KEYS.studyPlan
-    );
-    if (!studyPlan) {
-      router.push(ROUTES.DASHBOARD);
-    }
-    setStudyPlan(studyPlan);
-  }, []);
+  // useEffect(() => {
+  //   const studyPlan = getItemFromLS<StudyPlanData>(
+  //     LOCAL_STORAGE_KEYS.studyPlan
+  //   );
+  //   if (!studyPlan) {
+  //     router.push(ROUTES.DASHBOARD);
+  //   }
+  //   setStudyPlan(studyPlan);
+  // }, []);
 
   const handleNext = () => {
     router.push(ROUTES.DASHBOARD);
@@ -59,7 +59,7 @@ export default function Plan() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 bg-grey-100 z-10 p-2">
         <BreadCrumb items={breadCrumbs} />
         <ButtonWithArrow onClick={handleNext}>{buttonLabel}</ButtonWithArrow>
       </div>

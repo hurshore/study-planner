@@ -16,6 +16,57 @@ const improvementHeading = 'Areas for Improvement';
 const suggestionsHeading = 'Personalized Suggestions';
 const loadingLines = 3;
 
+const suggestions: Suggestion[] = [
+  {
+    title: 'Focus on CSS Flexbox and Grid layout',
+    tips: [
+      'Start by mastering the basics of Flexbox and Grid',
+      'Create layouts that adapt to different screen sizes',
+      'Understand how to align and justify elements within containers',
+    ],
+  },
+  {
+    title: 'Complete CSS challenges on CodePen',
+    tips: [
+      'Search for CSS challenges on CodePen and replicate them',
+      'Analyze how other developers approach similar challenges',
+      'Apply newly learned concepts to solve design problems',
+    ],
+  },
+  {
+    title:
+      'Learn Advanced CSS Selectors and Combinators for More Precise Styling',
+    tips: [
+      'Use attribute selectors to style elements with specific attributes',
+      'Understand pseudo-classes and pseudo-elements to target states of elements',
+      'Combine multiple selectors for more specific styling rules',
+    ],
+  },
+  {
+    title:
+      'In-Depth Learning of CSS Flexbox and Grid Layout Systems for Advanced Page Structuring',
+    tips: [
+      'Create complex layouts using both Flexbox and Grid together',
+      'Understand the difference between two-dimensional (Grid) and one-dimensional (Flexbox) layouts',
+      'Experiment with nested grids and responsive design',
+    ],
+  },
+  {
+    title: 'Practice creating responsive web pages',
+    tips: [
+      'Use media queries to adjust the layout for various devices',
+      'Apply fluid layouts that adapt based on viewport size',
+      'Test your pages across different screen sizes and devices',
+    ],
+  },
+];
+
+const strengths =
+  'HTML Basics, Basic Web Design Principles, Understanding of CSS Syntax, Color Theory and Typography';
+
+const improvements =
+  'Advanced CSS, Responsive Design, CSS Flexbox and Grid Layouts, CSS Animations and Transitions';
+
 type Suggestion = {
   title: string;
   tips: string[];
@@ -55,11 +106,12 @@ const AssessmentSummary = ({ assessment, goals, addGoal }: Props) => {
             {strengthHeading}
           </p>
 
-          {!assessment?.strengths ? (
+          {!strengths ? (
             <PulsingText numLines={loadingLines} />
           ) : (
             <p className="text-sm lg:text-base font-medium text-grey-700">
-              {assessment.strengths.join(', ')}
+              {/* {assessment.strengths.join(', ')} */}
+              {strengths}
             </p>
           )}
         </div>
@@ -67,11 +119,12 @@ const AssessmentSummary = ({ assessment, goals, addGoal }: Props) => {
           <p className="font-semibold mb-2 text-text-2 lg:text-lg">
             {improvementHeading}
           </p>
-          {!assessment?.weaknesses ? (
+          {!improvements ? (
             <PulsingText numLines={loadingLines} />
           ) : (
             <p className="text-sm lg:text-base font-medium text-grey-700">
-              {assessment.weaknesses.join(', ')}
+              {/* {assessment.weaknesses.join(', ')} */}
+              {improvements}
             </p>
           )}
         </div>
@@ -81,8 +134,8 @@ const AssessmentSummary = ({ assessment, goals, addGoal }: Props) => {
           {suggestionsHeading}
         </h3>
         <div className="flex flex-1 flex-col gap-3">
-          {assessment?.suggestions ? (
-            assessment.suggestions.map((suggestion, index) => {
+          {suggestions ? (
+            suggestions.map((suggestion, index) => {
               const suggestionId = suggestion.title + index.toString();
               const isSelected = goals.some((goal) => goal.id === suggestionId);
               return (
